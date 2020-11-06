@@ -20,8 +20,8 @@ from PyPDF2 import PdfFileWriter, PdfFileReader
 
 # -----------------------------------------------------------------------------
 
-FONT = "Helevetica.ttf"
-SMALL_LETTER_FONT = "Helvetica.ttf"
+FONT = "Arial.ttf"
+SMALL_LETTER_FONT = "Arial.ttf"
 
 OUTPUT_MAIN = "output-main.pdf"
 OUTPUT_QR = "output-qr.pdf"
@@ -77,7 +77,7 @@ def check_motif_boxes(img_array, motifs):
         img_array[817:847, 169:199] = cross
     if "handicap" in motifs:
         img_array[904:934, 169:199] = cross
-    if "sport_animaux" in motifs:
+    if "balade" in motifs:
         img_array[982:1012, 169:199] = cross
     if "convocation" in motifs:
         img_array[1114:1144, 169:199] = cross
@@ -178,3 +178,7 @@ def generate_pdf(first_name, last_name, birth_date, birth_city, current_city, ad
     fill_save_first_page(first_page_array, qr, first_name, last_name, birth_date, birth_city,current_city, address, leave_date, leave_hour)
     draw_save_second_page(qr)
     return merge_pdfs()
+
+if __name__ == '__main__':
+    args = parse_args()
+    generate_pdf(args.first_name, args.last_name, args.birth_date, args.birth_city, args.current_city, args.address, args.leave_date, args.leave_hour, args.motifs)
