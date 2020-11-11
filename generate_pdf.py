@@ -20,8 +20,8 @@ from PyPDF2 import PdfFileWriter, PdfFileReader
 
 # -----------------------------------------------------------------------------
 
-FONT = "Arial.ttf"
-SMALL_LETTER_FONT = "Arial.ttf"
+FONT = "FreeSerif.ttf"
+SMALL_LETTER_FONT = "FreeSerif.ttf"
 
 OUTPUT_MAIN = "output-main.pdf"
 OUTPUT_QR = "output-qr.pdf"

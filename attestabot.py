@@ -81,7 +81,7 @@ WAITING_MESSAGE_POOL = [
     "(‾▿‾) Attention les flics sont là!!!",
     "(°□°) Ca arrive !!",
     "(°!°) Oui je sais, c'est un peu long, mais ca va arriver!",
-    "("!') Il vaut mieux mobiliser son intelligence sur des conneries que mobiliser sa connerie sur des choses intelligentes."
+    "('!') Il vaut mieux mobiliser son intelligence sur des conneries que mobiliser sa connerie sur des choses intelligentes."
 ]
 
 # -----------------------------------------------------------------------------
@@ -404,4 +404,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    
