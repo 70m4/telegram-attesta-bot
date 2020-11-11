@@ -70,15 +70,18 @@ QUERY_TIMEFRAME = {
     "-10 minutes": -10,
     "-5 minutes": -5,
     "Tout de suite": 0,
+    "+5 minutes": +5,
+    "+10 minutes": +10,
+    "+20 minutes": +20,
 }
 
 # Nice User Interaction Messages.
 WAITING_MESSAGE_POOL = [
-    "( ˘ ³˘) Votre attestation arrive bientôt",
-    "(~‾▿‾)~ Attention les flics sont là!!!",
-    ",( °□°)/ CA ARRIVE !!",
-    "Oui je sais, c'est un peu long, mais ca va arriver!",
-    "Ca été aujourd'hui?"
+    "(˘³˘) Votre attestation arrive bientôt",
+    "(‾▿‾) Attention les flics sont là!!!",
+    "(°□°) Ca arrive !!",
+    "(°!°) Oui je sais, c'est un peu long, mais ca va arriver!",
+    "("!') Il vaut mieux mobiliser son intelligence sur des conneries que mobiliser sa connerie sur des choses intelligentes."
 ]
 
 # -----------------------------------------------------------------------------
@@ -130,8 +133,9 @@ Bienvenue sur jeVeuxSorir !
 Un bot pour générer facilement des attestations de sortie pendant le 
 confinement 2020.
 
-Pour bien débuter, créer votre profile via /profile, vous pouvez ajouter 
-plusieurs profiles en relancant la commande /profile.
+Pour bien débuter, créer votre profil via /profile, vous pouvez ajouter 
+plusieurs profils en relancant la commande /profile. Tapez /show pour
+voir tous les profils déjà enregistrés.
 Vous pouvez effacer un profil avec la commande /remove
 
 Ensuite, utilisez /generate pour une attestation personalisée ou /presto
@@ -149,6 +153,7 @@ def help_cmd(update, context):
     update.message.reply_text("""
 /help Affiche la liste des commandes.
 /profile Assistant pour créer une liste de profils.
+/show affiche la liste des profils enregistrés
 /remove Efface un profil
 /generate Génère une attestation en quelques clics.
 /presto Génère une attestation instantanée et retroactive pour faire les courses.. en cas d'oublie seulement.
@@ -314,13 +319,16 @@ def _generate(message, context, actionId, timeshift=0):
     if not profiles:
         message.reply_text("Pour générer une attestation, créer un profil via /profile.")
         return
+    action = AVAILABLE_ACTIONS[actionId]
+    message.reply_text("Nous allons générer une attestation pour " + action + " , dans " + str(timeshift))
     for profile in profiles:
-        # Generate the PDF file and return its locale filename.
-        filename = profile.generate(actionId, timeshift)
         
         # Message the user.
         waiting_msg = WAITING_MESSAGE_POOL[random.randrange(len(WAITING_MESSAGE_POOL))]
         message.reply_text(waiting_msg)
+
+        # Generate the PDF file and return its locale filename.
+        filename = profile.generate(actionId, timeshift)
         time.sleep(SYSTEM_SLEEP_DELAY)
 
         # Send the PDF document to the user.
@@ -396,3 +404,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    
